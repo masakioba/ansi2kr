@@ -1,7 +1,7 @@
 
 /*
-  asu ansi2kr Ver 1.2 (C) Masaki Oba 2017
-  18 Mar 2017
+  asu ansi2kr Ver 1.3 (C) Masaki Oba 2017
+  9 Apr 2017
   http://www.nabeta.tk
   admin@nabeta.tk
   ANSI C to K&R C converter for BDS C , MSX-C and other K&R C Coompiler
@@ -87,7 +87,7 @@
 #define OS "Windows"
 #endif
 #endif
-#define VERSION "1.2"
+#define VERSION "1.3"
 #define NENGOU "2017"
 
 
@@ -727,18 +727,10 @@ int check_center(char *s)
   return 0;
 }
 
-/* separate function from syori()
-for MSX-C compile error over flow */
-int syorisub(char *head,char *word,char *buf,char *tmpbuf)
+int ssub2(int ac,char *ep,char *head,char *word,char *buf,char *wordbuf)
 {
-  int stunif;
-  int lef;
-  char *ep;
-  int ac;
-
-  stunif = 0; /* struct or union */
-  ac = strlen(word);
-
+  int acbak,lef;
+  acbak = ac;
   if(strcmp(word,"extern")==0){
     ep = head + strlen("extern");
     while(*ep== ' ' || *ep == '\t'){
@@ -752,6 +744,95 @@ int syorisub(char *head,char *word,char *buf,char *tmpbuf)
       return -1;
     }
     ac += strlen(word);
+  }
+
+  if(strcmp(word,"signed")==0){
+    ep = head + strlen("signed");
+    while(*ep== ' ' || *ep == '\t'){
+      ++ac;
+      ++ep;
+    }
+
+    lef = getword(ep,word);
+    if(lef != 1 && lef != 2 && lef != 5){
+      /* not function */
+      return -1;
+    }
+    if(katack(word) == 0){
+      strcpy(word,wordbuf);
+      ac = acbak;
+    }
+    else{
+      ac += strlen(word);
+    }
+  }
+  else
+  if(strcmp(word,"unsigned")==0){
+    ep = head + strlen("unsigned");
+    while(*ep== ' ' || *ep == '\t'){
+      ++ac;
+      ++ep;
+    }
+
+    lef = getword(ep,word);
+    if(lef != 1 && lef != 2 && lef != 5){
+      /* not function */
+      puts_p(buf);
+      return -1;
+    }
+    if(katack(word) == 0){
+      strcpy(word,wordbuf);
+      ac = acbak;
+    }
+    else{
+      ac += strlen(word);
+    }
+  }
+
+  acbak = ac;
+
+  if(strcmp(word,"long")==0){
+    ep = head + strlen("long");
+    while(*ep== ' ' || *ep == '\t'){
+      ++ac;
+      ++ep;
+    }
+
+    lef = getword(ep,word);
+    if(lef != 1 && lef != 2){
+      /* not function */
+      puts_p(buf);
+      return -1;
+    }
+    if(katack(word) == 0){
+      strcpy(word,wordbuf);
+      ac = acbak;
+    }
+    else{
+      ac += strlen(word);
+    }
+  }
+  return ac;
+}
+
+/* separate function from syori()
+for MSX-C compile error over flow */
+int syorisub(char *head,char *word,char *buf,char *tmpbuf)
+{
+  int stunif;
+  int lef;
+  char *ep;
+  int nlen,ac;
+  char wordbuf[100];
+
+  stunif = 0; /* struct or union */
+  ac = strlen(word);
+  strcpy(wordbuf,word);
+
+  ac = ssub2(ac,ep,head,word,buf,wordbuf);
+
+  if(ac < 0){
+    return -1;
   }
 
   if(strcmp(word,"struct")==0){
