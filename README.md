@@ -35,3 +35,18 @@ Convert for BDS C
       c = sub('A',1);  
       printf("%c",c);
     } 
+
+Convert for MSX-C
+
+    #pragma noregalo
+    #include <stdio.h>
+    char sub(a,b)char a;int b;
+    {
+      return a + (char)b;
+    }
+    main()
+    {
+      char c;
+      c = sub((char)'A',1);
+      printf("%c",c);
+    }
