@@ -11,27 +11,27 @@ asu ansi2kr add some ANSI C function to BDS C and MSX-C.
 
 
 `#include <stdio.h>
-unsigned char sub(unsigned char a,int b)
-{
-  return a + (unsigned char)b;
-}
-void main(void)
-{
-  unsigned char c;
-  c = sub((unsigned char)'A',1);
-  printf("%c",c);
+unsigned char sub(unsigned char a,int b)  
+{  
+  return a + (unsigned char)b;  
+}  
+void main(void)  
+{  
+  unsigned char c;  
+  c = sub((unsigned char)'A',1);  
+  printf("%c",c);  
 }`
 
   ##Convert for BDS C
   
-`#include <stdio.h>
-char sub(a,b)char a;int b;
-{
-  return a + b;
-}
-void main()
-{
-  char c;
-  c = sub('A',1);
-  printf("%c",c);
+`#include <stdio.h>  
+char sub(a,b)char a;int b;  
+{  
+  return a + b;  
+}  
+void main()  
+{  
+  char c;  
+  c = sub('A',1);  
+  printf("%c",c);  
 }` 
