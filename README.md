@@ -1,5 +1,5 @@
 # asu ansi2kr
-##ANSI C to K&amp;R C converter for BDS C , MSX-C
+ANSI C to K&amp;R C converter for BDS C , MSX-C
 
 Ver 1.3
 
