@@ -50,3 +50,5 @@ Convert for MSX-C
       c = sub((char)'A',1);
       printf("%c",c);
     }
+
+https://www.nabeta.tk/en/msx/ansi2kr.html
