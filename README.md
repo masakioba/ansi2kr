@@ -9,7 +9,7 @@ ANSI C source. (Support C Compiler: C++ Builder, BDS C/MSX-C with asu ansi2kr)
 BDS C and MSX-C are subset K&amp;R C compilers.
 asu ansi2kr add some ANSI C function to BDS C and MSX-C.
 
-
+## Example ANSI C code for asu ansi2kr
     #include <stdio.h>
     unsigned char sub(unsigned char a,int b)  
     {  
@@ -22,7 +22,7 @@ asu ansi2kr add some ANSI C function to BDS C and MSX-C.
       printf("%c",c);  
     }
 
-Convert for BDS C
+## Example Converted code for BDS C
       
     #include <stdio.h>
     char sub(a,b)char a;int b;  
@@ -36,7 +36,7 @@ Convert for BDS C
       printf("%c",c);
     } 
 
-Convert for MSX-C
+## Example Converted code for MSX-C
 
     #pragma noregalo
     #include <stdio.h>
